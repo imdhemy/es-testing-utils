@@ -156,4 +156,12 @@ class Collection implements ArrayAccess, Countable, Iterator
     {
         return key($this->items) !== null;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return $this->items;
+    }
 }
