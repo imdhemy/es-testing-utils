@@ -1,0 +1,47 @@
+{
+	"name": "imdhemy/es-testing-utils",
+	"description": "Elasticsearch Testing utils",
+	"type": "library",
+	"keywords": [
+		"PHP",
+		"Elasticsearch",
+		"Testing",
+		"Mocking"
+	],
+	"homepage": "https://github.com/imdhemy/es-testing-utils",
+	"license": "MIT",
+	"readme": "/README.md",
+	"authors": [
+		{
+			"name": "imdhemy",
+			"email": "imdhemy@gmail.com",
+			"homepage": "https://imdhemy.com",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"email": "imdhemy@gmail.com",
+		"issues": "https://github.com/imdhemy/es-testing-utils/issues"
+	},
+	"require": {
+		"php": ">=7.1"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9.5",
+		"elasticsearch/elasticsearch": "^7.14"
+	},
+	"suggest": {
+		"phpunit/phpunit": "^9.5",
+		"elasticsearch/elasticsearch": "^7.14"
+	},
+	"autoload": {
+		"psr-4": {
+			"EsUtils\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\": "tests/"
+		}
+	}
+}
