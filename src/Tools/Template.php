@@ -18,7 +18,7 @@ abstract class Template implements MockAble, TemplateAble
     protected $effectiveUrl = 'localhost';
 
     /**
-     * @var
+     * @var array
      */
     protected $headers = [];
 
@@ -87,7 +87,7 @@ abstract class Template implements MockAble, TemplateAble
     }
 
     /**
-     * @param mixed $headers
+     * @param array $headers
      * @return Template
      */
     public function setHeaders(array $headers): Template
