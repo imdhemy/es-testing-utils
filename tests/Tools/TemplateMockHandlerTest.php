@@ -8,7 +8,6 @@ use EsUtils\Tools\TemplateQueue;
 use PHPUnit\Framework\TestCase;
 use Tests\Dummies\DummyTemplate;
 
-
 class TemplateMockHandlerTest extends TestCase
 {
     /**
@@ -71,4 +70,3 @@ class TemplateMockHandlerTest extends TestCase
         $this->assertEquals(2, $mockHandler->getTransactions()->count());
     }
 }
-

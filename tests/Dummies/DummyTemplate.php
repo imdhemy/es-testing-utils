@@ -6,5 +6,4 @@ use EsUtils\Tools\Template;
 
 class DummyTemplate extends Template
 {
-
 }

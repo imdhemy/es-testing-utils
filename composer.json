@@ -26,10 +26,15 @@
 	"require": {
 		"php": ">=7.1"
 	},
+	"config": {
+		"sort-packages": true
+	},
 	"require-dev": {
 		"ext-json": "*",
 		"phpunit/phpunit": "^9.5",
-		"elasticsearch/elasticsearch": "^7.14"
+		"elasticsearch/elasticsearch": "^7.14",
+		"vimeo/psalm": "^4.9",
+		"friendsofphp/php-cs-fixer": "^3.0"
 	},
 	"suggest": {
 		"phpunit/phpunit": "^9.5",
@@ -46,6 +51,9 @@
 		}
 	},
 	"scripts": {
-		"test": "./vendor/bin/phpunit --testdox"
+		"test": "./vendor/bin/phpunit --testdox",
+		"psalm": "vendor/bin/psalm",
+		"psalm-info": "vendor/bin/psalm --show-info=true",
+		"format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
 	}
 }

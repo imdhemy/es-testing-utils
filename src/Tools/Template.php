@@ -18,7 +18,7 @@ abstract class Template implements MockAble, TemplateAble
     protected $effectiveUrl = 'localhost';
 
     /**
-     * @var $headers
+     * @var
      */
     protected $headers = [];
 
@@ -55,6 +55,7 @@ abstract class Template implements MockAble, TemplateAble
     public function setBody(array $body): Template
     {
         $this->body = $body;
+
         return $this;
     }
 
@@ -73,6 +74,7 @@ abstract class Template implements MockAble, TemplateAble
     public function setEffectiveUrl(string $effectiveUrl): Template
     {
         $this->effectiveUrl = $effectiveUrl;
+
         return $this;
     }
 
@@ -91,6 +93,7 @@ abstract class Template implements MockAble, TemplateAble
     public function setHeaders(array $headers): Template
     {
         $this->headers = $headers;
+
         return $this;
     }
 
@@ -109,6 +112,7 @@ abstract class Template implements MockAble, TemplateAble
     public function setReason(string $reason): Template
     {
         $this->reason = $reason;
+
         return $this;
     }
 
@@ -127,6 +131,7 @@ abstract class Template implements MockAble, TemplateAble
     public function setStatus(int $status): Template
     {
         $this->status = $status;
+
         return $this;
     }
 }
