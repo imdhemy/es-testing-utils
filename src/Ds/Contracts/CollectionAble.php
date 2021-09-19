@@ -33,4 +33,9 @@ interface CollectionAble extends ArrayAccess, Iterator, Countable
      * @return mixed
      */
     public function first();
+
+    /**
+     * @param mixed $value
+     */
+    public function append($value): void;
 }

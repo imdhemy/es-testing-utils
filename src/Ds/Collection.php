@@ -31,7 +31,7 @@ class Collection implements CollectionAble
     }
 
     /**
-     * @param null $value
+     * @param mixed $value
      */
     public function append($value): void
     {

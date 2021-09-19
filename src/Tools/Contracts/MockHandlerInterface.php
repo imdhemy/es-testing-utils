@@ -2,13 +2,12 @@
 
 namespace EsUtils\Tools\Contracts;
 
-use EsUtils\Ds\Collection;
 use EsUtils\Ds\Contracts\CollectionAble;
 
 interface MockHandlerInterface
 {
     /**
-     * @return Collection
+     * @return CollectionAble
      */
     public function getTransactions(): CollectionAble;
 
