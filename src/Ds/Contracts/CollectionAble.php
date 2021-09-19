@@ -27,4 +27,10 @@ interface CollectionAble extends ArrayAccess, Iterator, Countable
      * @return array
      */
     public function toArray(): array;
+
+    /**
+     * Get first element of the collection
+     * @return mixed
+     */
+    public function first();
 }

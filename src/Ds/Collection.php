@@ -149,4 +149,12 @@ class Collection implements CollectionAble
     {
         return $this->items[$offset];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function first()
+    {
+        return $this->items[0] ?: null;
+    }
 }
