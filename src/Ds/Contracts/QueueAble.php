@@ -21,8 +21,7 @@ interface QueueAble extends CollectionAble
 
     /**
      * Pushes values into the queue
-     * @param $value
-     * @return mixed
+     * @param mixed $value
      */
-    public function push($value);
+    public function push($value): void;
 }

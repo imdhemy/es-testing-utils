@@ -51,7 +51,7 @@ class Queue extends Collection implements QueueAble
     /**
      * @inheritDoc
      */
-    public function push($value)
+    public function push($value): void
     {
         $this->offsetSet(null, $value);
     }
