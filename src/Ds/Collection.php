@@ -33,7 +33,7 @@ class Collection implements CollectionAble
     /**
      * @param null $value
      */
-    public function append($value)
+    public function append($value): void
     {
         $this->offsetSet(null, $value);
     }
@@ -63,7 +63,7 @@ class Collection implements CollectionAble
      */
     public function rewind()
     {
-        return reset($this->items);
+        reset($this->items);
     }
 
     /**
@@ -83,9 +83,9 @@ class Collection implements CollectionAble
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      */
-    public function prepend($value)
+    public function prepend($value): void
     {
         array_unshift($this->items, $value);
     }
@@ -131,7 +131,7 @@ class Collection implements CollectionAble
      */
     public function next()
     {
-        return next($this->items);
+        next($this->items);
     }
 
     /**
