@@ -2,6 +2,9 @@ name: Auto-fromats the code
 on:
   push:
     branches:
+      - '*'
+      - '*/*'
+      - '**'
       - '!main'
       - '!develop'
 jobs:
