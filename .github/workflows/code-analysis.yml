@@ -1,0 +1,24 @@
+name: Static Analysis
+on:
+  push:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
+      - '!main'
+      - '!develop'
+jobs:
+  psalm:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Install requirements
+        run: composer install
+
+      - name: Run Psalm
+        run: composer psalm-info
