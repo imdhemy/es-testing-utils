@@ -5,8 +5,8 @@ on:
       - '*'
       - '*/*'
       - '**'
-      - '!main'
-      - '!develop'
+#      - '!main'
+#      - '!develop'
 jobs:
   format:
     runs-on: ubuntu-20.04
@@ -16,6 +16,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.1'
+          extensions: mbstring, bcmath
+          coverage: none
 
       - name: Install requirements
         run: composer install
