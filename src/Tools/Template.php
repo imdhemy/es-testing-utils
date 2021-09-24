@@ -23,7 +23,7 @@ class Template implements MockAble, TemplateAble
     protected $headers = [];
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $reason;
 
