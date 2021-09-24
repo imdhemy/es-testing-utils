@@ -4,10 +4,10 @@ namespace Tests\Tools;
 
 use Elasticsearch\ClientBuilder;
 use EsUtils\Tools\Contracts\TransactionAble;
+use EsUtils\Tools\Template;
 use EsUtils\Tools\TemplateMockHandler;
 use EsUtils\Tools\TemplateQueue;
 use PHPUnit\Framework\TestCase;
-use Tests\Dummies\DummyTemplate;
 
 class TemplateMockHandlerTest extends TestCase
 {
@@ -16,7 +16,7 @@ class TemplateMockHandlerTest extends TestCase
      */
     public function test_returns_array()
     {
-        $template = new DummyTemplate();
+        $template = new Template();
         $mockHandler = new TemplateMockHandler($template);
         $response = $mockHandler([]);
 
@@ -35,7 +35,7 @@ class TemplateMockHandlerTest extends TestCase
      */
     public function test_it_records_transactions()
     {
-        $template = new DummyTemplate();
+        $template = new Template();
         $mockHandler = new TemplateMockHandler($template);
 
         $request = ['foo' => 'bar'];
@@ -53,10 +53,10 @@ class TemplateMockHandlerTest extends TestCase
      */
     public function test_it_mocks_template_queues()
     {
-        $templateOne = new DummyTemplate();
+        $templateOne = new Template();
         $templateOne->setStatus(201);
 
-        $templateTwo = new DummyTemplate();
+        $templateTwo = new Template();
         $templateTwo->setStatus(404);
 
         $mocks = new TemplateQueue();
@@ -79,7 +79,7 @@ class TemplateMockHandlerTest extends TestCase
      */
     public function test_it_works_with_es_client()
     {
-        $template = new DummyTemplate();
+        $template = new Template();
         $mockHandler = new TemplateMockHandler($template);
 
         $clientBuilder = ClientBuilder::create();
@@ -97,7 +97,7 @@ class TemplateMockHandlerTest extends TestCase
      */
     public function test_it_returns_the_same_body()
     {
-        $template = new DummyTemplate();
+        $template = new Template();
         $template->setBody(['foo' => 'bar']);
         $mockHandler = new TemplateMockHandler($template);
 

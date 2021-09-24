@@ -5,7 +5,7 @@ namespace EsUtils\Tools;
 use EsUtils\Tools\Contracts\MockAble;
 use EsUtils\Tools\Contracts\TemplateAble;
 
-abstract class Template implements MockAble, TemplateAble
+class Template implements MockAble, TemplateAble
 {
     /**
      * @var array
