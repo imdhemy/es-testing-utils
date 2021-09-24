@@ -2,6 +2,9 @@
 
 namespace EsUtils\Tools\Contracts;
 
+/**
+ * Any mocked template should implement this interface
+ */
 interface TemplateAble
 {
     /**

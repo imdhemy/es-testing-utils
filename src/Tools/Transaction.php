@@ -5,6 +5,9 @@ namespace EsUtils\Tools;
 use EsUtils\Tools\Contracts\TemplateAble;
 use EsUtils\Tools\Contracts\TransactionAble;
 
+/**
+ * A transaction holds information about the request and its response
+ */
 class Transaction implements TransactionAble
 {
     /**

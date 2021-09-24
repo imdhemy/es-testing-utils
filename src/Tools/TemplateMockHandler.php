@@ -9,6 +9,9 @@ use EsUtils\Tools\Contracts\MockHandlerInterface;
 use GuzzleHttp\Ring\Core;
 use GuzzleHttp\Ring\Future\CompletedFutureArray;
 
+/**
+ * The template mock handler
+ */
 class TemplateMockHandler implements MockHandlerInterface
 {
     /**

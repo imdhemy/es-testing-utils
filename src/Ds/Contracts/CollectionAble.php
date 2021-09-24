@@ -35,7 +35,14 @@ interface CollectionAble extends ArrayAccess, Iterator, Countable
     public function first();
 
     /**
+     * Appends a new element to the collection
      * @param mixed $value
      */
     public function append($value): void;
+
+    /**
+     * Add a new element to the beginning of the collection
+     * @param mixed $value
+     */
+    public function prepend($value): void;
 }

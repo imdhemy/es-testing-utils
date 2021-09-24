@@ -25,14 +25,6 @@ class Collection implements CollectionAble
     /**
      * @inheritDoc
      */
-    public function clear(): void
-    {
-        $this->items = [];
-    }
-
-    /**
-     * @param mixed $value
-     */
     public function append($value): void
     {
         $this->offsetSet(null, $value);
@@ -53,9 +45,25 @@ class Collection implements CollectionAble
     /**
      * @inheritDoc
      */
+    public function clear(): void
+    {
+        $this->items = [];
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function offsetUnset($offset)
     {
         unset($this->items[$offset]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function prepend($value): void
+    {
+        array_unshift($this->items, $value);
     }
 
     /**
@@ -83,21 +91,12 @@ class Collection implements CollectionAble
     }
 
     /**
-     * @param mixed $value
-     */
-    public function prepend($value): void
-    {
-        array_unshift($this->items, $value);
-    }
-
-    /**
      * @inheritDoc
      */
     public function count(): int
     {
         return count($this->items);
     }
-
 
     /**
      * @inheritDoc
@@ -107,7 +106,6 @@ class Collection implements CollectionAble
         return current($this->items);
     }
 
-
     /**
      * @inheritDoc
      */
@@ -116,7 +114,6 @@ class Collection implements CollectionAble
         return $this->count() === 0;
     }
 
-
     /**
      * @inheritDoc
      */
@@ -124,7 +121,6 @@ class Collection implements CollectionAble
     {
         return key($this->items);
     }
-
 
     /**
      * @inheritDoc

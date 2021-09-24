@@ -2,6 +2,10 @@
 
 namespace EsUtils\Tools\Contracts;
 
+/**
+ * MockAble interface
+ * Any class implements this interface can be handled by the mock handler
+ */
 interface MockAble
 {
     /**

@@ -6,6 +6,10 @@ use EsUtils\Ds\Queue;
 use EsUtils\Tools\Contracts\MockAble;
 use EsUtils\Tools\Contracts\TemplateAble;
 
+/**
+ * A template queue
+ * Can be used to mock multiple responses in sequence
+ */
 class TemplateQueue implements MockAble
 {
     /**

@@ -5,6 +5,10 @@ namespace EsUtils\Tools;
 use EsUtils\Tools\Contracts\MockAble;
 use EsUtils\Tools\Contracts\TemplateAble;
 
+/**
+ * Template class
+ * Can be used to mock responses
+ */
 class Template implements MockAble, TemplateAble
 {
     /**
@@ -65,6 +69,7 @@ class Template implements MockAble, TemplateAble
     }
 
     /**
+     * @inheritDoc
      * @return resource
      */
     public function getBodyStream()
