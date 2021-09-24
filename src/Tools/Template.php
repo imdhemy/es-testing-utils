@@ -72,6 +72,7 @@ class Template implements MockAble, TemplateAble
         $jsonBody = json_encode($this->getBody());
         $encodedBody = base64_encode($jsonBody);
         $content = sprintf('data://text/plain;base64,%s', $encodedBody);
+
         return fopen($content, 'r');
     }
 
