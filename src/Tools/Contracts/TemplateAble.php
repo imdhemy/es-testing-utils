@@ -18,9 +18,15 @@ interface TemplateAble
 
     /**
      * Returns response body
-     * @return array|null
+     * @return array
      */
-    public function getBody(): ?array;
+    public function getBody(): array;
+
+    /**
+     * Returns body as resource
+     * @return resource
+     */
+    public function getBodyStream();
 
     /**
      * Returns reason
@@ -33,4 +39,10 @@ interface TemplateAble
      * @return string|null
      */
     public function getEffectiveUrl(): ?string;
+
+    /**
+     * Returns transfer stats
+     * @return array
+     */
+    public function getTransferStats(): array;
 }

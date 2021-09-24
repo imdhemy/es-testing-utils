@@ -24,13 +24,13 @@
 		"issues": "https://github.com/imdhemy/es-testing-utils/issues"
 	},
 	"require": {
-		"php": ">=7.3"
+		"php": ">=7.3",
+		"ext-json": "*"
 	},
 	"config": {
 		"sort-packages": true
 	},
 	"require-dev": {
-		"ext-json": "*",
 		"phpunit/phpunit": "^9.5",
 		"elasticsearch/elasticsearch": "^7.14",
 		"vimeo/psalm": "^4.9",

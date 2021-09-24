@@ -3,6 +3,7 @@
 namespace EsUtils\Tools\Contracts;
 
 use EsUtils\Ds\Contracts\CollectionAble;
+use GuzzleHttp\Ring\Future\CompletedFutureArray;
 
 interface MockHandlerInterface
 {
@@ -13,7 +14,7 @@ interface MockHandlerInterface
 
     /**
      * @param array $request
-     * @return array
+     * @return CompletedFutureArray
      */
-    public function __invoke(array $request): array;
+    public function __invoke(array $request): CompletedFutureArray;
 }

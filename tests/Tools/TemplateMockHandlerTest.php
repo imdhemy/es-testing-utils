@@ -2,6 +2,7 @@
 
 namespace Tests\Tools;
 
+use Elasticsearch\ClientBuilder;
 use EsUtils\Tools\Contracts\TransactionAble;
 use EsUtils\Tools\TemplateMockHandler;
 use EsUtils\Tools\TemplateQueue;
@@ -19,9 +20,12 @@ class TemplateMockHandlerTest extends TestCase
         $mockHandler = new TemplateMockHandler($template);
         $response = $mockHandler([]);
 
+        $expectedBody = stream_get_contents($template->getBodyStream());
+        $actualBody = stream_get_contents($response['body']);
+
         $this->assertEquals($template->getStatus(), $response['status']);
         $this->assertEquals($template->getHeaders(), $response['headers']);
-        $this->assertEquals($template->getBody(), $response['body']);
+        $this->assertEquals($expectedBody, $actualBody);
         $this->assertEquals($template->getReason(), $response['reason']);
         $this->assertEquals($template->getEffectiveUrl(), $response['effective_url']);
     }
@@ -68,5 +72,41 @@ class TemplateMockHandlerTest extends TestCase
         $response = $mockHandler([]);
         $this->assertEquals($templateTwo->getStatus(), $response['status']);
         $this->assertEquals(2, $mockHandler->getTransactions()->count());
+    }
+
+    /**
+     * @test
+     */
+    public function test_it_works_with_es_client()
+    {
+        $template = new DummyTemplate();
+        $mockHandler = new TemplateMockHandler($template);
+
+        $clientBuilder = ClientBuilder::create();
+        $clientBuilder->setHandler($mockHandler);
+
+        $client = $clientBuilder->build();
+
+        $response = $client->info();
+        $this->assertIsArray($response);
+        $this->assertEquals($template->getBody(), $response);
+    }
+
+    /**
+     * @test
+     */
+    public function test_it_returns_the_same_body()
+    {
+        $template = new DummyTemplate();
+        $template->setBody(['foo' => 'bar']);
+        $mockHandler = new TemplateMockHandler($template);
+
+        $clientBuilder = ClientBuilder::create();
+        $clientBuilder->setHandler($mockHandler);
+
+        $client = $clientBuilder->build();
+
+        $response = $client->info();
+        $this->assertEquals($template->getBody(), $response);
     }
 }

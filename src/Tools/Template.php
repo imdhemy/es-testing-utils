@@ -10,7 +10,7 @@ abstract class Template implements MockAble, TemplateAble
     /**
      * @var array
      */
-    protected $body;
+    protected $body = [];
 
     /**
      * @var string
@@ -33,6 +33,11 @@ abstract class Template implements MockAble, TemplateAble
     protected $status = 200;
 
     /**
+     * @var array
+     */
+    protected $transferStats = ['total_time' => 100];
+
+    /**
      * @inheritDoc
      */
     public function getNext(): TemplateAble
@@ -43,7 +48,7 @@ abstract class Template implements MockAble, TemplateAble
     /**
      * @inheritDoc
      */
-    public function getBody(): ?array
+    public function getBody(): array
     {
         return $this->body;
     }
@@ -57,6 +62,17 @@ abstract class Template implements MockAble, TemplateAble
         $this->body = $body;
 
         return $this;
+    }
+
+    /**
+     * @return resource
+     */
+    public function getBodyStream()
+    {
+        $jsonBody = json_encode($this->getBody());
+        $encodedBody = base64_encode($jsonBody);
+        $content = sprintf('data://text/plain;base64,%s', $encodedBody);
+        return fopen($content, 'r');
     }
 
     /**
@@ -131,6 +147,25 @@ abstract class Template implements MockAble, TemplateAble
     public function setStatus(int $status): Template
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTransferStats(): array
+    {
+        return $this->transferStats;
+    }
+
+    /**
+     * @param array $transferStats
+     * @return Template
+     */
+    public function setTransferStats(array $transferStats): Template
+    {
+        $this->transferStats = $transferStats;
 
         return $this;
     }
