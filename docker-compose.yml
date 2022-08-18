@@ -1,11 +1,10 @@
-# N.B. I will use PHP8.0 from my host not docker
 version: "3.9"
 services:
   elasticsearch:
     container_name: elasticsearch_container
-    image: elasticsearch:7.14.0
+    image: elasticsearch:8.3.3
     networks:
-      - backend
+      - es-utils-network
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -16,9 +15,9 @@ services:
       - es-disk:/usr/share/elasticsearch/data
   kibana:
     container_name: kibana_container
-    image: kibana:7.14.0
+    image: kibana:8.3.3
     networks:
-      - backend
+      - es-utils-network
     ports:
       - "5601:5601"
     environment:
@@ -29,5 +28,5 @@ volumes:
   es-disk:
     driver: local
 networks:
-  backend:
+  es-utils-network:
 
