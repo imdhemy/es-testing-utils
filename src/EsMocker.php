@@ -2,6 +2,7 @@
 
 namespace EsUtils;
 
+use BadMethodCallException;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
 use Elastic\Elasticsearch\Exception\AuthenticationException;
@@ -11,6 +12,9 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class EsMocker
  * This class is used to mock responses for Elasticsearch requests.
+ *
+ * @method static EsMocker mock(array $body, int $statusCode = 200)
+ * @method static EsMocker fail(string $message)
  */
 class EsMocker
 {
@@ -18,22 +22,6 @@ class EsMocker
      * @var ResponseInterface[]|ClientExceptionInterface[]
      */
     private array $mockResponses = [];
-
-    /**
-     * Creates a new EsMocker instance.
-     * @param array $body
-     * @param int $statusCode
-     *
-     * @return EsMocker
-     */
-    public static function mock(array $body, int $statusCode = 200): EsMocker
-    {
-        $response = new Response(json_encode($body), $statusCode);
-        $mocker = new self();
-        $mocker->mockResponses[] = $response;
-
-        return $mocker;
-    }
 
     /**
      * Enqueues a response to be returned when the next request is made.
@@ -56,7 +44,7 @@ class EsMocker
      *
      * @return $this
      */
-    public function fail(string $string): EsMocker
+    public function thenFail(string $string): EsMocker
     {
         $requestException = new RequestException($string);
         $this->mockResponses[] = $requestException;
@@ -73,5 +61,30 @@ class EsMocker
         $httpClient = HttpClientFactory::mock($this->mockResponses, $transactions);
 
         return ClientBuilder::create()->setHttpClient($httpClient)->build();
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     *
+     * @return EsMocker
+     */
+    public static function __callStatic($name, $arguments): EsMocker
+    {
+        $staticMethods = ['mock', 'fail'];
+
+        if (! in_array($name, $staticMethods)) {
+            throw new BadMethodCallException(sprintf('Method %s does not exist', $name));
+        }
+
+        $esMocker = new self();
+
+        if ($name === 'mock') {
+            $esMocker->then(...$arguments);
+        } else {
+            $esMocker->thenFail(...$arguments);
+        }
+
+        return $esMocker;
     }
 }

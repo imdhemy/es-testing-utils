@@ -2,6 +2,7 @@
 
 namespace Tests\Integration;
 
+use BadMethodCallException;
 use Elastic\Elasticsearch\Exception\ElasticsearchException;
 use EsUtils\EsMocker;
 use EsUtils\RequestException;
@@ -23,7 +24,7 @@ class EsMockerTest extends TestCase
 
         $mocker = EsMocker::mock($successBody, $successStatusCode)
             ->then($createdBody, $createdStatusCode)
-            ->fail($failureMessage);
+            ->thenFail($failureMessage);
 
         $client = $mocker->build();
         $successResponse = $client->info();
@@ -53,5 +54,26 @@ class EsMockerTest extends TestCase
         $client->info();
 
         $this->assertCount(2, $history);
+    }
+
+    /**
+     * @test
+     * @throws ElasticsearchException
+     */
+    public function it_should_allows_direct_failure()
+    {
+        $this->expectException(RequestException::class);
+
+        $client = EsMocker::fail('Error message')->build();
+        $client->info();
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_fail_with_invalid_static_calls()
+    {
+        $this->expectException(BadMethodCallException::class);
+        EsMocker::invalidMethod();
     }
 }
