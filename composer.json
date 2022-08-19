@@ -31,10 +31,10 @@
 		"sort-packages": true
 	},
 	"require-dev": {
+		"elasticsearch/elasticsearch": "^8.3",
+		"friendsofphp/php-cs-fixer": "^3.10",
 		"phpunit/phpunit": "^9.5",
-		"elasticsearch/elasticsearch": "^7.14",
-		"vimeo/psalm": "^4.9",
-		"friendsofphp/php-cs-fixer": "^3.0"
+		"vimeo/psalm": "^4.26"
 	},
 	"suggest": {
 		"phpunit/phpunit": "^9.5",
