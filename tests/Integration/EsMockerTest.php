@@ -2,7 +2,6 @@
 
 namespace Tests\Integration;
 
-use Elastic\Elasticsearch\Exception\AuthenticationException;
 use Elastic\Elasticsearch\Exception\ElasticsearchException;
 use EsUtils\EsMocker;
 use EsUtils\RequestException;
