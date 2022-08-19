@@ -41,7 +41,7 @@ use EsUtils\EsMocker;
 // The created client will return the `$info` response with the first request,
 // and the `$search` response with the second request, and so on.
 // Note: the `thenFail()` method mocks a request exception.
-$client = EsMocker::mock($info)->then($index)->then($search)->thenFail($error)->build()
+$client = EsMocker::mock($info)->then($index)->then($search)->thenFail($error)->build();
 
 // Or you can directly fail the first request:
 $client = EsMocker::fail($message)->build();
