@@ -11,7 +11,7 @@ responses.
 You can use composer
 
 ```
-composer require --dev imdhemy/es-testing-utils
+composer require --dev imdhemy/es-testing-utils "^7"
 ```
 
 ## Versions
