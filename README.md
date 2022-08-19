@@ -23,74 +23,40 @@ composer require --dev imdhemy/es-testing-utils
 
 ## Usage
 
-At first prepare your template instance
+Es testing utils provides you a fluent Elasticsearch mock builder, you can use it as follows:
 
 ```php
-use EsUtils\Tools\Template;
+use EsUtils\EsMocker;
 
-$template = new Template()
-$template->setBody(['tagline' => 'You Know, for Search']);
+// Create ES client that returns the mock response
+$client = EsMocker::mock(['tagline' => 'You know, for search.'])->build();
+
 ```
 
-Then create an instance of the template mock handler
+Or you can mock a sequence of responses:
 
 ```php
-use EsUtils\Tools\TemplateMockHandler;
+use EsUtils\EsMocker;
 
-$mockHandler = new TemplateMockHandler($template);
+// The created client will return the `$info` response with the first request,
+// and the `$search` response with the second request, and so on.
+// Note: the `fail()` method mocks a request exception.
+$client = EsMocker::mock($info)->then($index)->then($search)->fail($error)->build()
+
 ```
 
-Finally, use the client builder to build your client.
+Below is a complete example of how to use EsMocker in a test:
 
 ```php
-use Elasticsearch\ClientBuilder;
+use EsUtils\EsMocker;
 
-$builder = ClientBuilder::create();
-$builder->setHandler($mockHandler);
-$client = $builder->build();
-```
-
-Now, you can use this client on unit tests
-
-```php
-$response = $client->info();
-$this->assertEquals($template->getBody(), $response);
-```
-
-### Mocking a single response example
-
-```php
-use EsUtils\Tools\Template;
-use EsUtils\Tools\TemplateMockHandler;
-use Elasticsearch\ClientBuilder;
-
-$template = new Template()
-$template->setBody(['tagline' => 'You Know, for Search']);
-$mockHandler = new TemplateMockHandler($template);
-
-$client = ClientBuilder::create()->setHandler($mockHandler)->build();
+$expected=['tagline' => 'You know, for search.'];
+$client = EsMocker::mock($expected)->build();
 
 $response = $client->info();
-$this->assertEquals($template->getBody(), $response);
-```
+$body = (string) $response->getBody();
 
-### Mocking a queue of responses
-
-You can also mock a queue of responses to return in order.
-
-```php
-use EsUtils\Tools\Template;
-use EsUtils\Tools\TemplateMockHandler;use EsUtils\Tools\TemplateQueue;
-
-$firstTemplate = new Template();
-$secondTemplate = new Template();
-
-$mocks = new TemplateQueue();
-$mocks->addTemplate($firstTemplate);
-$mocks->addTemplate($secondTemplate);
-
-$handler = new TemplateMockHandler($mocks);
-// from now then, use the handler the same way of mocking a single response
+$this->assertEquals(json_encode($expected), $body);
 ```
 
 ## Credits
