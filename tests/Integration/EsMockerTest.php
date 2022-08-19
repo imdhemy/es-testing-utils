@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Tools;
+namespace Tests\Integration;
 
 use Elastic\Elasticsearch\Exception\ElasticsearchException;
 use EsUtils\EsMocker;
 use EsUtils\RequestException;
 use PHPUnit\Framework\TestCase;
 
-class TemplateMockHandlerTest extends TestCase
+class EsMockerTest extends TestCase
 {
     /**
      * @test
