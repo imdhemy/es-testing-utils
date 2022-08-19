@@ -16,9 +16,10 @@ composer require --dev imdhemy/es-testing-utils
 
 ## Versions
 
-| Elasticsearch | Es testing Utils |
-| --- | --- |
-| 7.x | 7.x |
+| Elasticsearch | Es testing Utils                                            |
+|---------------|-------------------------------------------------------------|
+| 7.x           | [7.x](https://github.com/imdhemy/es-testing-utils/tree/7.x) |
+| 8.x           | [8.x](https://github.com/imdhemy/es-testing-utils/tree/8.x) |
 
 ## Usage
 
