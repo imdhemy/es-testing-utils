@@ -24,7 +24,7 @@
 		"issues": "https://github.com/imdhemy/es-testing-utils/issues"
 	},
 	"require": {
-		"php": ">=7.3",
+		"php": ">=7.4",
 		"ext-json": "*"
 	},
 	"config": {
