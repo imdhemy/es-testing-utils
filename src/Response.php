@@ -16,7 +16,7 @@ class Response extends GuzzleResponse
      * @inheritDoc
      */
     public function __construct(
-        $body = null,
+        ?string $body = null,
         int $status = 200,
         array $headers = [Elasticsearch::HEADER_CHECK => Elasticsearch::PRODUCT_NAME],
         string $version = '1.1',

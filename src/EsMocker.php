@@ -5,9 +5,14 @@ namespace EsUtils;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
 use Elastic\Elasticsearch\Exception\AuthenticationException;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class EsMocker
 {
+    /**
+     * @var ResponseInterface[]|ClientExceptionInterface[]
+     */
     private $mockResponses = [];
 
     public static function mock(array $body, int $statusCode = 200): EsMocker
@@ -41,6 +46,7 @@ class EsMocker
     public function build(): Client
     {
         $httpClient = HttpClientFactory::mock($this->mockResponses);
+
         return ClientBuilder::create()->setHttpClient($httpClient)->build();
     }
 }

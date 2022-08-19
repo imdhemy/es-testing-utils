@@ -17,14 +17,14 @@ use Psr\Http\Message\ResponseInterface;
 class HttpClientFactory
 {
     /**
-     * @param array|ResponseInterface$responses
+     * @param array|ResponseInterface $responses
      * @param array $transactions
      *
      * @return ClientInterface
      */
     public static function mock($responses, array $transactions = []): ClientInterface
     {
-        $queue = is_array($responses) ? $responses : [$responses];
+        $queue = $responses instanceof ResponseInterface ? [$responses] : $responses;
         $mockHandler = new MockHandler($queue);
 
         $handlerStack = HandlerStack::create($mockHandler);
