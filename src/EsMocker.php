@@ -68,9 +68,9 @@ class EsMocker
      * Builds a client that uses the mocked responses.
      * @throws AuthenticationException
      */
-    public function build(): Client
+    public function build(array &$transactions = []): Client
     {
-        $httpClient = HttpClientFactory::mock($this->mockResponses);
+        $httpClient = HttpClientFactory::mock($this->mockResponses, $transactions);
 
         return ClientBuilder::create()->setHttpClient($httpClient)->build();
     }

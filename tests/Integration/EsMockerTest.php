@@ -2,6 +2,7 @@
 
 namespace Tests\Integration;
 
+use Elastic\Elasticsearch\Exception\AuthenticationException;
 use Elastic\Elasticsearch\Exception\ElasticsearchException;
 use EsUtils\EsMocker;
 use EsUtils\RequestException;
@@ -38,5 +39,20 @@ class EsMockerTest extends TestCase
         $this->expectException(RequestException::class);
         $this->expectExceptionMessage($failureMessage);
         $client->info();
+    }
+
+    /**
+     * @test
+     * @throws ElasticsearchException
+     */
+    public function it_should_allow_tracking_history()
+    {
+        $history = [];
+        $client = EsMocker::mock(['message' => 'ok'])->then(['foo'])->build($history);
+
+        $client->info();
+        $client->info();
+
+        $this->assertCount(2, $history);
     }
 }
