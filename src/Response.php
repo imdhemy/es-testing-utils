@@ -13,7 +13,12 @@ use GuzzleHttp\Psr7\Response as GuzzleResponse;
 class Response extends GuzzleResponse
 {
     /**
-     * @inheritDoc
+     * This constructor receives body as the first parameter to make code more readable.
+     * @param string|null $body
+     * @param int $status
+     * @param array $headers
+     * @param string $version
+     * @param string|null $reason
      */
     public function __construct(
         ?string $body = null,
