@@ -2,111 +2,41 @@
 
 namespace Tests\Tools;
 
-use Elasticsearch\ClientBuilder;
-use EsUtils\Tools\Contracts\TransactionAble;
-use EsUtils\Tools\Template;
-use EsUtils\Tools\TemplateMockHandler;
-use EsUtils\Tools\TemplateQueue;
+use Elastic\Elasticsearch\Exception\ElasticsearchException;
+use EsUtils\EsMocker;
+use EsUtils\RequestException;
 use PHPUnit\Framework\TestCase;
 
 class TemplateMockHandlerTest extends TestCase
 {
     /**
      * @test
+     * @throws ElasticsearchException
      */
-    public function test_returns_array()
+    public function it_should_return_the_mocked_response()
     {
-        $template = new Template();
-        $mockHandler = new TemplateMockHandler($template);
-        $response = $mockHandler([]);
+        $successBody = ['message' => 'ok'];
+        $successStatusCode = 203;
+        $createdBody = ['message' => 'created'];
+        $createdStatusCode = 201;
+        $failureMessage = 'Error communicating with Elasticsearch';
 
-        $expectedBody = stream_get_contents($template->getBodyStream());
-        $actualBody = stream_get_contents($response['body']);
+        $mocker = EsMocker::mock($successBody, $successStatusCode)
+            ->then($createdBody, $createdStatusCode)
+            ->fail($failureMessage);
 
-        $this->assertEquals($template->getStatus(), $response['status']);
-        $this->assertEquals($template->getHeaders(), $response['headers']);
-        $this->assertEquals($expectedBody, $actualBody);
-        $this->assertEquals($template->getReason(), $response['reason']);
-        $this->assertEquals($template->getEffectiveUrl(), $response['effective_url']);
-    }
+        $client = $mocker->build();
+        $successResponse = $client->info();
+        $createdResponse = $client->index(['index' => 'my_index', 'body' => ['test_field' => 'abc']]);
 
-    /**
-     * @test
-     */
-    public function test_it_records_transactions()
-    {
-        $template = new Template();
-        $mockHandler = new TemplateMockHandler($template);
+        $successContent = (string)$successResponse->getBody();
+        $this->assertEquals(json_encode($successBody), $successContent);
 
-        $request = ['foo' => 'bar'];
-        $mockHandler($request);
+        $createdContent = (string)$createdResponse->getBody();
+        $this->assertEquals(json_encode($createdBody), $createdContent);
 
-        $this->assertEquals(1, $mockHandler->getTransactions()->count());
-        /** @var TransactionAble $transaction */
-        $transaction = $mockHandler->getTransactions()->first();
-        $this->assertSame($request, $transaction->getRequest());
-        $this->assertSame($template, $transaction->getResponse());
-    }
-
-    /**
-     * @test
-     */
-    public function test_it_mocks_template_queues()
-    {
-        $templateOne = new Template();
-        $templateOne->setStatus(201);
-
-        $templateTwo = new Template();
-        $templateTwo->setStatus(404);
-
-        $mocks = new TemplateQueue();
-        $mocks->addTemplate($templateOne);
-        $mocks->addTemplate($templateTwo);
-
-        $mockHandler = new TemplateMockHandler($mocks);
-
-        $response = $mockHandler([]);
-        $this->assertEquals(1, $mockHandler->getTransactions()->count());
-        $this->assertEquals($templateOne->getStatus(), $response['status']);
-
-        $response = $mockHandler([]);
-        $this->assertEquals($templateTwo->getStatus(), $response['status']);
-        $this->assertEquals(2, $mockHandler->getTransactions()->count());
-    }
-
-    /**
-     * @test
-     */
-    public function test_it_works_with_es_client()
-    {
-        $template = new Template();
-        $mockHandler = new TemplateMockHandler($template);
-
-        $clientBuilder = ClientBuilder::create();
-        $clientBuilder->setHandler($mockHandler);
-
-        $client = $clientBuilder->build();
-
-        $response = $client->info();
-        $this->assertIsArray($response);
-        $this->assertEquals($template->getBody(), $response);
-    }
-
-    /**
-     * @test
-     */
-    public function test_it_returns_the_same_body()
-    {
-        $template = new Template();
-        $template->setBody(['foo' => 'bar']);
-        $mockHandler = new TemplateMockHandler($template);
-
-        $clientBuilder = ClientBuilder::create();
-        $clientBuilder->setHandler($mockHandler);
-
-        $client = $clientBuilder->build();
-
-        $response = $client->info();
-        $this->assertEquals($template->getBody(), $response);
+        $this->expectException(RequestException::class);
+        $this->expectExceptionMessage($failureMessage);
+        $client->info();
     }
 }
