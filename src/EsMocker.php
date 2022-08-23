@@ -6,6 +6,7 @@ use BadMethodCallException;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
 use Elastic\Elasticsearch\Exception\AuthenticationException;
+use JsonException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -25,14 +26,16 @@ class EsMocker
 
     /**
      * Enqueues a response to be returned when the next request is made.
+     *
      * @param array $body
      * @param int $statusCode
      *
      * @return EsMocker
+     * @throws JsonException
      */
     public function then(array $body, int $statusCode = 200): EsMocker
     {
-        $response = new Response(json_encode($body), $statusCode);
+        $response = new Response(json_encode($body, JSON_THROW_ON_ERROR), $statusCode);
         $this->mockResponses[] = $response;
 
         return $this;
@@ -64,16 +67,17 @@ class EsMocker
     }
 
     /**
-     * @param $name
-     * @param $arguments
+     * @param string $name
+     * @param array $arguments
      *
      * @return EsMocker
+     * @throws JsonException
      */
-    public static function __callStatic($name, $arguments): EsMocker
+    public static function __callStatic(string $name, array $arguments): EsMocker
     {
         $staticMethods = ['mock', 'fail'];
 
-        if (! in_array($name, $staticMethods)) {
+        if (! in_array($name, $staticMethods, true)) {
             throw new BadMethodCallException(sprintf('Method %s does not exist', $name));
         }
 
