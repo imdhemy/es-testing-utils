@@ -25,20 +25,16 @@
 	},
 	"require": {
 		"php": ">=7.4",
-		"ext-json": "*"
+		"ext-json": "*",
+		"elasticsearch/elasticsearch": "^8.3"
 	},
 	"config": {
 		"sort-packages": true
 	},
 	"require-dev": {
-		"elasticsearch/elasticsearch": "^8.3",
 		"friendsofphp/php-cs-fixer": "^3.10",
 		"phpunit/phpunit": "^9.5",
 		"vimeo/psalm": "^4.26"
-	},
-	"suggest": {
-		"phpunit/phpunit": "^9.5",
-		"elasticsearch/elasticsearch": "^7.14"
 	},
 	"autoload": {
 		"psr-4": {
