@@ -14,7 +14,7 @@ class HttpClientFactoryTest extends TestCase
      * @test
      * @throws ClientExceptionInterface
      */
-    public function it_should_mock_a_single_response()
+    public function it_should_mock_a_single_response(): void
     {
         $response = new Response('{"message": "ok"}');
 
@@ -28,7 +28,7 @@ class HttpClientFactoryTest extends TestCase
      * @test
      * @throws ClientExceptionInterface
      */
-    public function it_should_mock_multiple_responses()
+    public function it_should_mock_multiple_responses(): void
     {
         $responses = [
             new Response('{"message": "ok"}'),

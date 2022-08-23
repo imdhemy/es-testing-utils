@@ -11,7 +11,7 @@ class ResponseTest extends TestCase
     /**
      * @test
      */
-    public function it_should_create_an_instance_of_guzzle_response()
+    public function it_should_create_an_instance_of_guzzle_response(): void
     {
         $stub = new Response('{"message": "ok"}', 200, []);
         $this->assertInstanceOf(\GuzzleHttp\Psr7\Response::class, $stub);
@@ -20,7 +20,7 @@ class ResponseTest extends TestCase
     /**
      * @test
      */
-    public function it_should_add_es_product_headers()
+    public function it_should_add_es_product_headers(): void
     {
         $stub = new Response('{"message": "ok"}', 200, []);
         $headers = $stub->getHeaders();

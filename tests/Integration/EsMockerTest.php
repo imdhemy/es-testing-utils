@@ -6,15 +6,16 @@ use BadMethodCallException;
 use Elastic\Elasticsearch\Exception\ElasticsearchException;
 use EsUtils\EsMocker;
 use EsUtils\RequestException;
+use JsonException;
 use PHPUnit\Framework\TestCase;
 
 class EsMockerTest extends TestCase
 {
     /**
      * @test
-     * @throws ElasticsearchException
+     * @throws ElasticsearchException|JsonException
      */
-    public function it_should_return_the_mocked_response()
+    public function it_should_return_the_mocked_response(): void
     {
         $successBody = ['message' => 'ok'];
         $successStatusCode = 203;
@@ -31,10 +32,10 @@ class EsMockerTest extends TestCase
         $createdResponse = $client->index(['index' => 'my_index', 'body' => ['test_field' => 'abc']]);
 
         $successContent = (string)$successResponse->getBody();
-        $this->assertEquals(json_encode($successBody), $successContent);
+        $this->assertEquals(json_encode($successBody, JSON_THROW_ON_ERROR), $successContent);
 
         $createdContent = (string)$createdResponse->getBody();
-        $this->assertEquals(json_encode($createdBody), $createdContent);
+        $this->assertEquals(json_encode($createdBody, JSON_THROW_ON_ERROR), $createdContent);
 
         $this->expectException(RequestException::class);
         $this->expectExceptionMessage($failureMessage);
@@ -43,9 +44,9 @@ class EsMockerTest extends TestCase
 
     /**
      * @test
-     * @throws ElasticsearchException
+     * @throws ElasticsearchException|JsonException
      */
-    public function it_should_allow_tracking_history()
+    public function it_should_allow_tracking_history(): void
     {
         $history = [];
         $client = EsMocker::mock(['message' => 'ok'])->then(['foo'])->build($history);
@@ -60,7 +61,7 @@ class EsMockerTest extends TestCase
      * @test
      * @throws ElasticsearchException
      */
-    public function it_should_allows_direct_failure()
+    public function it_should_allows_direct_failure(): void
     {
         $this->expectException(RequestException::class);
 
@@ -71,7 +72,7 @@ class EsMockerTest extends TestCase
     /**
      * @test
      */
-    public function it_should_fail_with_invalid_static_calls()
+    public function it_should_fail_with_invalid_static_calls(): void
     {
         $this->expectException(BadMethodCallException::class);
         EsMocker::invalidMethod();
