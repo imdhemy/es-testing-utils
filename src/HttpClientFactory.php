@@ -20,6 +20,7 @@ class HttpClientFactory
      * Mocks a single or multiple responses.
      * @param array|ResponseInterface $responses
      * @param array $transactions
+     * @param-out mixed|array|\ArrayAccess<int, array> $transactions
      *
      * @return ClientInterface
      */
