@@ -1,6 +1,6 @@
 <?php
 
-namespace EsUtils;
+namespace Imdhemy\EsUtils;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
@@ -13,14 +13,11 @@ use Psr\Http\Message\ResponseInterface;
  * Class HttpClientFactory
  * This class is used to create a PSR-18 client that can be used to mock the Elasticsearch client.
  * It supports single or multiple responses, and can be used to simulate a failure.
- *
- * @deprecated use Imdhemy\EsUtils\HttpClientFactory instead
  */
 class HttpClientFactory
 {
     /**
      * Mocks a single or multiple responses.
-     *
      * @param array|ResponseInterface $responses
      * @param array $transactions
      * @param-out mixed|array|\ArrayAccess<int, array> $transactions

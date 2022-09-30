@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Integration;
+namespace Imdhemy\Tests\Integration;
 
 use BadMethodCallException;
 use Elastic\Elasticsearch\Exception\ElasticsearchException;
-use EsUtils\EsMocker;
-use EsUtils\RequestException;
+use Imdhemy\EsUtils\EsMocker;
+use Imdhemy\EsUtils\RequestException;
 use JsonException;
 use PHPUnit\Framework\TestCase;
 
