@@ -2,11 +2,11 @@
 
 namespace Imdhemy\Tests\Unit;
 
+use GuzzleHttp\Psr7\Request;
 use Imdhemy\EsUtils\HttpClientFactory;
 use Imdhemy\EsUtils\Response;
-use GuzzleHttp\Psr7\Request;
-use Psr\Http\Client\ClientExceptionInterface;
 use Imdhemy\Tests\TestCase;
+use Psr\Http\Client\ClientExceptionInterface;
 
 class HttpClientFactoryTest extends TestCase
 {
