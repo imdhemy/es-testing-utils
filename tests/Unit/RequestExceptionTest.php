@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Imdhemy\Tests\Unit;
 
-use EsUtils\RequestException;
-use Tests\TestCase;
+use Imdhemy\EsUtils\RequestException;
+use Imdhemy\Tests\TestCase;
 
 class RequestExceptionTest extends TestCase
 {

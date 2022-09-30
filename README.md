@@ -26,7 +26,7 @@ composer require --dev imdhemy/es-testing-utils
 Es testing utils provides you a fluent Elasticsearch mock builder, you can use it as follows:
 
 ```php
-use EsUtils\EsMocker;
+use Imdhemy\EsUtils\EsMocker;
 
 // Create ES client that returns the mock response
 $client = EsMocker::mock(['tagline' => 'You know, for search.'])->build();
@@ -36,7 +36,7 @@ $client = EsMocker::mock(['tagline' => 'You know, for search.'])->build();
 Or you can mock a sequence of responses:
 
 ```php
-use EsUtils\EsMocker;
+use Imdhemy\EsUtils\EsMocker;
 
 // The created client will return the `$info` response with the first request,
 // and the `$search` response with the second request, and so on.
@@ -51,7 +51,7 @@ $client = EsMocker::fail($message)->build();
 Below is a complete example of how to use EsMocker in a test:
 
 ```php
-use EsUtils\EsMocker;
+use Imdhemy\EsUtils\EsMocker;
 
 $expected=['tagline' => 'You know, for search.'];
 $client = EsMocker::mock($expected)->build();

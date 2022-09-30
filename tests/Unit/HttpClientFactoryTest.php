@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit;
+namespace Imdhemy\Tests\Unit;
 
-use EsUtils\HttpClientFactory;
-use EsUtils\Response;
+use Imdhemy\EsUtils\HttpClientFactory;
+use Imdhemy\EsUtils\Response;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientExceptionInterface;
-use Tests\TestCase;
+use Imdhemy\Tests\TestCase;
 
 class HttpClientFactoryTest extends TestCase
 {

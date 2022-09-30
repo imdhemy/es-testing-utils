@@ -1,6 +1,6 @@
 <?php
 
-namespace EsUtils;
+namespace Imdhemy\EsUtils;
 
 use BadMethodCallException;
 use Elastic\Elasticsearch\Client;
@@ -16,8 +16,6 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @method static EsMocker mock(array $body, int $statusCode = 200)
  * @method static EsMocker fail(string $message)
- *
- * @deprecated use Imdhemy\EsUtils\EsMocker instead
  */
 class EsMocker
 {
@@ -45,7 +43,6 @@ class EsMocker
 
     /**
      * Enqueues a request exception to be thrown when the next request is made.
-     *
      * @param string $string
      *
      * @return $this
@@ -60,7 +57,6 @@ class EsMocker
 
     /**
      * Builds a client that uses the mocked responses.
-     *
      * @throws AuthenticationException
      */
     public function build(array &$transactions = []): Client

@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit;
+namespace Imdhemy\Tests\Unit;
 
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use EsUtils\Response;
-use Tests\TestCase;
+use Imdhemy\EsUtils\Response;
+use Imdhemy\Tests\TestCase;
 
 class ResponseTest extends TestCase
 {

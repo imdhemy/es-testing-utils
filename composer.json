@@ -26,10 +26,8 @@
 	"require": {
 		"php": ">=7.4",
 		"ext-json": "*",
-		"elasticsearch/elasticsearch": "^8.4"
-	},
-	"config": {
-		"sort-packages": true
+		"elasticsearch/elasticsearch": "^8.4",
+		"fakerphp/faker": "^1.20"
 	},
 	"require-dev": {
 		"friendsofphp/php-cs-fixer": "^3.10",
@@ -38,12 +36,13 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"EsUtils\\": "src/"
+			"EsUtils\\": "src/",
+			"Imdhemy\\EsUtils\\": "src/es-utils/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Tests\\": "tests/"
+			"Imdhemy\\Tests\\": "tests/"
 		}
 	},
 	"scripts": {
@@ -51,5 +50,8 @@
 		"psalm": "vendor/bin/psalm --show-info=true",
 		"format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
 		"pre-commit": ["@format", "@psalm", "@test"]
+	},
+	"config": {
+		"sort-packages": true
 	}
 }
