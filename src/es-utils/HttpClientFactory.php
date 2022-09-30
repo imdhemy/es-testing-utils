@@ -18,6 +18,7 @@ class HttpClientFactory
 {
     /**
      * Mocks a single or multiple responses.
+     *
      * @param array|ResponseInterface $responses
      * @param array $transactions
      * @param-out mixed|array|\ArrayAccess<int, array> $transactions
@@ -26,6 +27,7 @@ class HttpClientFactory
      */
     public static function mock($responses, array &$transactions = []): ClientInterface
     {
+        /** @var array<int, ResponseInterface> $queue */
         $queue = $responses instanceof ResponseInterface ? [$responses] : $responses;
         $mockHandler = new MockHandler($queue);
 

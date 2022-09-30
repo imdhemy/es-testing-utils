@@ -43,13 +43,14 @@ class EsMocker
 
     /**
      * Enqueues a request exception to be thrown when the next request is made.
-     * @param string $string
+     *
+     * @param string $message
      *
      * @return $this
      */
-    public function thenFail(string $string): EsMocker
+    public function thenFail(string $message): EsMocker
     {
-        $requestException = new RequestException($string);
+        $requestException = new RequestException($message);
         $this->mockResponses[] = $requestException;
 
         return $this;
@@ -57,6 +58,7 @@ class EsMocker
 
     /**
      * Builds a client that uses the mocked responses.
+     *
      * @throws AuthenticationException
      */
     public function build(array &$transactions = []): Client
@@ -84,9 +86,9 @@ class EsMocker
         $esMocker = new self();
 
         if ($name === 'mock') {
-            $esMocker->then(...$arguments);
+            $esMocker->then((array)$arguments[0], (int)($arguments[1] ?? 200));
         } else {
-            $esMocker->thenFail(...$arguments);
+            $esMocker->thenFail((string)$arguments[0]);
         }
 
         return $esMocker;
