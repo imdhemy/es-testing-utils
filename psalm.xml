@@ -10,6 +10,10 @@
         <directory name="src"/>
         <ignoreFiles>
             <directory name="vendor"/>
+            <file name="src/EsMocker.php"/>
+            <file name="src/HttpClientFactory.php"/>
+            <file name="src/RequestException.php"/>
+            <file name="src/Response.php"/>
         </ignoreFiles>
     </projectFiles>
 </psalm>
