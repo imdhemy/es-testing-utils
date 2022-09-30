@@ -49,9 +49,16 @@
 		"test": "./vendor/bin/phpunit --testdox",
 		"psalm": "vendor/bin/psalm --show-info=true",
 		"format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
-		"pre-commit": ["@format", "@psalm", "@test"]
+		"pre-commit": [
+			"@format",
+			"@psalm",
+			"@test"
+		]
 	},
 	"config": {
-		"sort-packages": true
+		"sort-packages": true,
+		"platform": {
+			"php": "7.4.0"
+		}
 	}
 }
