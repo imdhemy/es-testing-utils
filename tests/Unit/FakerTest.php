@@ -51,6 +51,7 @@ class FakerTest extends TestCase
 
     /**
      * @test
+     * @psalm-suppress MixedAssignment
      */
     public function es_info(): void
     {
