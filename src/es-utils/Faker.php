@@ -2,6 +2,7 @@
 
 namespace Imdhemy\EsUtils;
 
+use Faker\Factory;
 use Faker\Generator;
 
 /**
@@ -23,6 +24,18 @@ class Faker
     public function __construct(Generator $generator)
     {
         $this->generator = $generator;
+    }
+
+    /**
+     * Creates a new Faker instance
+     *
+     * @param string $locale
+     *
+     * @return self
+     */
+    public static function create(string $locale = Factory::DEFAULT_LOCALE): self
+    {
+        return new self(Factory::create($locale));
     }
 
     /**
@@ -65,5 +78,34 @@ class Faker
     public function __isset(string $name)
     {
         return isset($this->generator->{$name});
+    }
+
+    /**
+     * Generates es cluster info
+     *
+     * @param array $info
+     *
+     * @return array
+     */
+    public function esInfo(array $info = []): array
+    {
+        $data = [
+            'name' => 'es_utils',
+            'cluster_name' => 'es-utils-cluster',
+            'cluster_uuid' => $this->generator->uuid(),
+            'version' => [
+                'number' => '8.4.2',
+                'build_flavor' => 'default',
+                'build_type' => 'mock',
+                'build_hash' => $this->generator->md5(),
+                'build_snapshot' => false,
+                'lucene_version' => '9.3.0',
+                'minimum_wire_compatibility_version' => '7.17.0',
+                'minimum_index_compatibility_version' => '7.0.0',
+            ],
+            'tagline' => 'You Know, for Search',
+        ];
+
+        return array_replace_recursive($data, $info);
     }
 }
