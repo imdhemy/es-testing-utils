@@ -1,8 +1,8 @@
 version: "3.9"
 services:
   elasticsearch:
-    container_name: elasticsearch_container
-    image: elasticsearch:8.3.3
+    container_name: es_utils_elasticsearch
+    image: elasticsearch:8.4.2
     networks:
       - es-utils-network
     ports:
@@ -14,8 +14,8 @@ services:
     volumes:
       - es-disk:/usr/share/elasticsearch/data
   kibana:
-    container_name: kibana_container
-    image: kibana:8.3.3
+    container_name: es_utils_kibana
+    image: kibana:8.4.2
     networks:
       - es-utils-network
     ports:
