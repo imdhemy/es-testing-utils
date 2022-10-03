@@ -16,6 +16,9 @@ class FakerTest extends TestCase
      */
     private Faker $sut;
 
+    /**
+     * @inheritDoc
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -81,6 +84,25 @@ class FakerTest extends TestCase
                 'cluster_uuid' => $clusterUUID,
                 'version' => ['build_hash' => $buildHash],
             ])
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function es_create_index(): void
+    {
+        $indexName = $this->sut->esIndex();
+
+        $expected = [
+            'acknowledged' => true,
+            'shards_acknowledged' => true,
+            'index' => $indexName,
+        ];
+
+        $this->assertEquals(
+            $expected,
+            $this->sut->esCreateIndex($indexName)
         );
     }
 }

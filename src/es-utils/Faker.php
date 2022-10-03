@@ -13,6 +13,28 @@ use Faker\Generator;
  */
 class Faker
 {
+    // Index names
+    private const INDEX_NAMES = [
+        'customers',
+        'staffs',
+        'orders',
+        'stores',
+        'categories',
+        'products',
+        'stocks',
+        'brands',
+        'payments',
+        'invoices',
+        'shipments',
+        'returns',
+        'reviews',
+        'tags',
+        'attributes',
+        'users',
+        'posts',
+        'comments',
+    ];
+
     /**
      * @var Generator
      */
@@ -107,5 +129,33 @@ class Faker
         ];
 
         return array_replace_recursive($data, $info);
+    }
+
+    /**
+     * Generates es create index response
+     *
+     * @param string|null $indexName
+     *
+     * @return array
+     */
+    public function esCreateIndex(?string $indexName = null): array
+    {
+        $indexName = $indexName ?? $this->esIndex();
+
+        return [
+            'acknowledged' => true,
+            'shards_acknowledged' => true,
+            'index' => $indexName,
+        ];
+    }
+
+    /**
+     * Generates es index name
+     *
+     * @return string
+     */
+    public function esIndex(): string
+    {
+        return self::INDEX_NAMES[array_rand(self::INDEX_NAMES)];
     }
 }
