@@ -5,7 +5,6 @@ namespace Imdhemy\EsUtils;
 use BadMethodCallException;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
-use Elastic\Elasticsearch\Exception\AuthenticationException;
 use JsonException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -58,8 +57,6 @@ class EsMocker
 
     /**
      * Builds a client that uses the mocked responses.
-     *
-     * @throws AuthenticationException
      */
     public function build(array &$transactions = []): Client
     {
