@@ -12,7 +12,10 @@ use GuzzleHttp\Psr7\Response as GuzzleResponse;
  */
 class Response extends GuzzleResponse
 {
-    public const ES_HEADERS = [Elasticsearch::HEADER_CHECK => Elasticsearch::PRODUCT_NAME];
+    public const ES_HEADERS = [
+        Elasticsearch::HEADER_CHECK => Elasticsearch::PRODUCT_NAME,
+        'Content-Type' => 'application/json',
+    ];
 
     /**
      * This constructor receives body as the first parameter to make code more readable.
