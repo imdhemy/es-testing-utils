@@ -158,4 +158,16 @@ class Faker
     {
         return self::INDEX_NAMES[array_rand(self::INDEX_NAMES)];
     }
+
+    /**
+     * Generates es delete index response
+     *
+     * @return array
+     */
+    public function esDeleteIndex(): array
+    {
+        return [
+            'acknowledged' => true,
+        ];
+    }
 }

@@ -105,4 +105,19 @@ class FakerTest extends TestCase
             $this->sut->esCreateIndex($indexName)
         );
     }
+
+    /**
+     * @test
+     */
+    public function es_delete_index(): void
+    {
+        $expected = [
+            'acknowledged' => true,
+        ];
+
+        $this->assertEquals(
+            $expected,
+            $this->sut->esDeleteIndex()
+        );
+    }
 }
