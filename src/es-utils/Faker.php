@@ -170,4 +170,52 @@ class Faker
             'acknowledged' => true,
         ];
     }
+
+    /**
+     * Generates es put index settings response
+     *
+     * @return array
+     */
+    public function putIndexSettings(): array
+    {
+        return [
+            'acknowledged' => true,
+        ];
+    }
+
+    /**
+     * Generates es get index settings response
+     *
+     * @param string|null $index
+     * @param array $settings
+     *
+     * @return array
+     */
+    public function esGetIndexSettings(?string $index = null, array $settings = []): array
+    {
+        $indexName = $index ?? $this->esIndex();
+        $settings = array_replace_recursive([
+            'routing' => [
+                'allocation' => [
+                    'include' => [
+                        '_tier_preference' => 'data_content',
+                    ],
+                ],
+            ],
+            'number_of_shards' => '1',
+            'provided_name' => $indexName,
+            'creation_date' => $this->unixTime(),
+            'number_of_replicas' => '1',
+            'uuid' => $this->uuid(),
+            'version' => [
+                'created' => '8040299',
+            ],
+        ], $settings);
+
+        return [
+            $indexName => [
+                'settings' => ['index' => $settings],
+            ],
+        ];
+    }
 }
