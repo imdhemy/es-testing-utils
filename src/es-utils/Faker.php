@@ -218,4 +218,16 @@ class Faker
             ],
         ];
     }
+
+    /**
+     * Generate put index mappings response
+     *
+     * @return array
+     */
+    public function esPutIndexMappings(): array
+    {
+        return [
+            'acknowledged' => true,
+        ];
+    }
 }

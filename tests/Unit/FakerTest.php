@@ -177,4 +177,19 @@ class FakerTest extends TestCase
             ])
         );
     }
+
+    /**
+     * @test
+     */
+    public function es_put_index_mappings(): void
+    {
+        $expected = [
+            'acknowledged' => true,
+        ];
+
+        $this->assertEquals(
+            $expected,
+            $this->sut->esPutIndexMappings()
+        );
+    }
 }
