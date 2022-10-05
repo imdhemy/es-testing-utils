@@ -132,7 +132,7 @@ class FakerTest extends TestCase
 
         $this->assertEquals(
             $expected,
-            $this->sut->putIndexSettings()
+            $this->sut->esPutIndexSettings()
         );
     }
 

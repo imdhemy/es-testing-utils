@@ -176,7 +176,7 @@ class Faker
      *
      * @return array
      */
-    public function putIndexSettings(): array
+    public function esPutIndexSettings(): array
     {
         return [
             'acknowledged' => true,
