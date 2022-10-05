@@ -120,4 +120,61 @@ class FakerTest extends TestCase
             $this->sut->esDeleteIndex()
         );
     }
+
+    /**
+     * @test
+     */
+    public function put_index_settings(): void
+    {
+        $expected = [
+            'acknowledged' => true,
+        ];
+
+        $this->assertEquals(
+            $expected,
+            $this->sut->putIndexSettings()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function es_get_index_settings(): void
+    {
+        $indexName = $this->sut->esIndex();
+        $unixTime = $this->sut->unixTime;
+        $uuid = $this->sut->uuid;
+
+        $expected = [
+            $indexName => [
+                'settings' => [
+                    'index' => [
+                        'routing' => [
+                            'allocation' => [
+                                'include' => [
+                                    '_tier_preference' => 'data_content',
+                                ],
+                            ],
+                        ],
+                        'number_of_shards' => '1',
+                        'provided_name' => $indexName,
+                        'creation_date' => $unixTime,
+                        'number_of_replicas' => '1',
+                        'uuid' => $uuid,
+                        'version' => [
+                            'created' => '8040299',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals(
+            $expected,
+            $this->sut->esGetIndexSettings($indexName, [
+                'creation_date' => $unixTime,
+                'uuid' => $uuid,
+            ])
+        );
+    }
 }
