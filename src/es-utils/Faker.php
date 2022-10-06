@@ -166,9 +166,7 @@ class Faker
      */
     public function esDeleteIndex(): array
     {
-        return [
-            'acknowledged' => true,
-        ];
+        return $this->esAcknowledged();
     }
 
     /**
@@ -178,9 +176,7 @@ class Faker
      */
     public function esPutIndexSettings(): array
     {
-        return [
-            'acknowledged' => true,
-        ];
+        return $this->esAcknowledged();
     }
 
     /**
@@ -225,6 +221,16 @@ class Faker
      * @return array
      */
     public function esPutIndexMappings(): array
+    {
+        return $this->esAcknowledged();
+    }
+
+    /**
+     * Generates es acknowledged response
+     *
+     * @return array
+     */
+    public function esAcknowledged(): array
     {
         return [
             'acknowledged' => true,

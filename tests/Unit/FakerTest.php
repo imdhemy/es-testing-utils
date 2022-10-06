@@ -192,4 +192,19 @@ class FakerTest extends TestCase
             $this->sut->esPutIndexMappings()
         );
     }
+
+    /**
+     * @test
+     */
+    public function es_acknowledge_response(): void
+    {
+        $expected = [
+            'acknowledged' => true,
+        ];
+
+        $this->assertEquals(
+            $expected,
+            $this->sut->esAcknowledged()
+        );
+    }
 }
