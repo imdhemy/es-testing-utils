@@ -2,8 +2,10 @@
 
 [![Tests](https://github.com/imdhemy/es-testing-utils/actions/workflows/tests.yml/badge.svg)](https://github.com/imdhemy/es-testing-utils/actions/workflows/tests.yml) [![Latest Stable Version](https://poser.pugx.org/imdhemy/es-testing-utils/v/stable)](https://packagist.org/packages/imdhemy/es-testing-utils) [![Total Downloads](https://poser.pugx.org/imdhemy/es-testing-utils/downloads)](https://packagist.org/packages/imdhemy/es-testing-utils)
 
-Unit tests shouldn't depend on a running cluster, should be mocked out instead. To be more specific, the client
-responses should be mocked out. Elastic search testing utils makes it super easy for you to mock Elasticsearch
+Unit tests shouldn't depend on a running cluster, should be mocked out instead.
+To be more specific, the client
+responses should be mocked out. Elastic search testing utils makes it super easy
+for you to mock Elasticsearch
 responses.
 
 ## Installation
@@ -23,7 +25,10 @@ composer require --dev imdhemy/es-testing-utils
 
 ## Usage
 
-Es testing utils provides you a fluent Elasticsearch mock builder, you can use it as follows:
+### Mocker
+
+Es testing utils provides you a fluent Elasticsearch mock builder, you can use
+it as follows:
 
 ```php
 use Imdhemy\EsUtils\EsMocker;
@@ -62,6 +67,24 @@ $body = (string) $response->getBody();
 $this->assertEquals(json_encode($expected), $body);
 ```
 
+### Faker
+
+The faker class provides you a set of methods to generate random data for
+your tests. It provides all the methods of the [Faker]() library along with
+new methods to generate Elasticsearch data. All the methods related to
+Elasticsearch starts with `es` prefix.
+
+```php
+use Imdhemy\EsUtils\Faker;
+
+$faker = Faker::create();
+
+$index = $faker->esIndexName(); // Returns a random index name
+$createIndex = $faker->esCreateIndex(); // Returns create index response body
+
+// Explore the Faker class to see all the available methods
+```
+
 ## Credits
 
 - [Mohamad Eldhemy](https://imdhemy.com)
@@ -69,4 +92,5 @@ $this->assertEquals(json_encode($expected), $body);
 
 ## License
 
-The ES testing utils is open-sourced software licensed under the [MIT license](/LICENSE)
+The ES testing utils is open-sourced software licensed under
+the [MIT license](/LICENSE)
