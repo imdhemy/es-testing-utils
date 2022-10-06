@@ -31,6 +31,7 @@ trait EsAssertions
 
             if ($expectedIndexName === $indexName && $transaction['request']->getMethod() === 'DELETE') {
                 $requested = true;
+
                 break;
             }
         }
