@@ -210,6 +210,11 @@ trait EsAssertions
                 $body = $request->getBody();
                 $body->rewind();
 
+                if (empty($expectedContents)) {
+                    $requested = true;
+                    break;
+                }
+
                 try {
                     $contents = json_decode($body->getContents(), true, 512, JSON_THROW_ON_ERROR);
                 } catch (JsonException $e) {
