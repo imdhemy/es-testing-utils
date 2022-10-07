@@ -157,12 +157,68 @@ trait EsAssertions
 
                 try {
                     $contents = json_decode($body->getContents(), true, 512, JSON_THROW_ON_ERROR);
-                    $actualSettings = $contents['settings'] ?? [];
+                    $actualSettings = $contents['settings'] ?? null;
                 } catch (JsonException $e) {
+                    $actualSettings = null;
                     continue;
                 }
 
                 if ($requested = ($actualSettings === $settings)) {
+                    break;
+                }
+            }
+        }
+
+        $this->assertTrue($requested);
+    }
+
+    /**
+     * Asserts that history contains a request to create the given index
+     *
+     * @param array $history
+     * @param string $indexName
+     * @param array|null $settings
+     * @param array|null $mappings
+     *
+     * @return void
+     */
+    public function assertRequestedCreateIndex(
+        array $history,
+        string $indexName,
+        ?array $settings = null,
+        ?array $mappings = null
+    ): void {
+        $this->assertNotEmpty($history);
+        $expectedContents = [];
+
+        if ($settings) {
+            $expectedContents['settings'] = $settings;
+        }
+
+        if ($mappings) {
+            $expectedContents['mappings'] = $mappings;
+        }
+
+        $requested = false;
+
+        foreach ($history as $transaction) {
+            $request = $transaction['request'];
+            $path = $request->getUri()->getPath();
+            $expectedPath = '/' . $indexName;
+
+            if ($path === $expectedPath && $request->getMethod() === 'PUT') {
+                $body = $request->getBody();
+                $body->rewind();
+
+                try {
+                    $contents = json_decode($body->getContents(), true, 512, JSON_THROW_ON_ERROR);
+                } catch (JsonException $e) {
+                    $contents = null;
+                    continue;
+                }
+
+                if ($expectedContents === $contents) {
+                    $requested = true;
                     break;
                 }
             }
