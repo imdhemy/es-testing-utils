@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\EsUtils;
+namespace Imdhemy\EsUtils\Assertions;
 
 use GuzzleHttp\Psr7\Request;
 use JsonException;
