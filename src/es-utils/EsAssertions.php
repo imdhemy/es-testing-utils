@@ -104,4 +104,70 @@ trait EsAssertions
 
         $this->assertTrue($requested);
     }
+
+    /**
+     * Asserts that history contains a request to PUT the given index settings
+     *
+     * @param array<int, array<string, Request|mixed>> $history
+     * @param string $indexName
+     *
+     * @return void
+     */
+    public function assertRequestedPutIndexSettings(array $history, string $indexName): void
+    {
+        $this->assertNotEmpty($history);
+        $requested = false;
+
+        foreach ($history as $transaction) {
+            $path = $transaction['request']->getUri()->getPath();
+            $expectedPath = '/' . $indexName . '/_settings';
+
+            if ($path === $expectedPath && $transaction['request']->getMethod() === 'PUT') {
+                $requested = true;
+
+                break;
+            }
+        }
+
+        $this->assertTrue($requested);
+    }
+
+    /**
+     * Asserts that history contains a request to PUT the given index settings
+     *
+     * @param array<int, array<string, Request|mixed>> $history
+     * @param string $indexName
+     * @param array $settings
+     *
+     * @return void
+     */
+    public function assertRequestedPutIndexSettingsWith(array $history, string $indexName, array $settings): void
+    {
+        $this->assertNotEmpty($history);
+        $requested = false;
+
+        foreach ($history as $transaction) {
+            $request = $transaction['request'];
+            $path = $request->getUri()->getPath();
+            $expectedPath = '/' . $indexName . '/_settings';
+
+            if ($path === $expectedPath && $request->getMethod() === 'PUT') {
+                $body = $request->getBody();
+                $body->rewind();
+
+                try {
+                    $contents = json_decode($body->getContents(), true, 512, JSON_THROW_ON_ERROR);
+                    $actualSettings = $contents['settings'] ?? [];
+                } catch (JsonException $e) {
+                    continue;
+                }
+
+                if ($requested = ($actualSettings === $settings)) {
+                    break;
+                }
+            }
+        }
+
+        $this->assertTrue($requested);
+    }
 }
